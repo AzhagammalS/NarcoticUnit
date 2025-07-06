@@ -11,7 +11,7 @@ import OtherDepartmentInputs from './pages/OtherDepartmentInputs';
 
 function App() {
   return (
-    <BrowserRouter basename="/CRU/">
+    <BrowserRouter>
       <Routes>
         <Route path='/' index element={<LandingPage />} />
         <Route path='otherdepartmentinputs' element={<OtherDepartmentInputs />} />
