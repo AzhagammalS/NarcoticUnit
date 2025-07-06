@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import {
   Box, Tabs, Tab, Grid, TextField, Button, Typography
 } from '@mui/material';
+import AddLinkIconIcon from '@mui/icons-material/AddLink';
 
-const MafiaMemberPhotoVideo = () => {
+const MafiaMemberPhotosVideos = () => {
   const [tab, setTab] = useState(0);
   const [formData, setFormData] = useState({
     file: null,
@@ -12,6 +13,7 @@ const MafiaMemberPhotoVideo = () => {
     time: '',
     description: ''
   });
+  const [addMemberEnabled, setAddMemberEnabled] = useState(false); // <-- new state
 
   const handleTabChange = (e, newValue) => setTab(newValue);
 
@@ -28,6 +30,7 @@ const MafiaMemberPhotoVideo = () => {
     e.preventDefault();
     console.log(`Tab: ${tab}`, formData);
     // Handle upload logic here
+    setAddMemberEnabled(true);  // <-- enable the button after submit
   };
 
   const tabLabels = ["Upload Photos", "Upload Videos", "Biometrics"];
@@ -58,7 +61,9 @@ const MafiaMemberPhotoVideo = () => {
               {formData.file ? ` ${formData.file.name}` : ' None'}
             </Typography>
           </Grid>
+        </Grid>
 
+        <Grid container spacing={2} sx={{ mt: 2, mb: 3 }}>
           <Grid item xs={12} sm={4}>
             <TextField
               label="Date"
@@ -90,7 +95,6 @@ const MafiaMemberPhotoVideo = () => {
               onChange={handleChange}
             />
           </Grid>
-
           <Grid item xs={12}>
             <TextField
               label="Description"
@@ -103,15 +107,32 @@ const MafiaMemberPhotoVideo = () => {
             />
           </Grid>
 
-          <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary">
-              {tab === 0 || tab === 1 ? "Submit" : "Upload"}
-            </Button>
-          </Grid>
+          {tab === 2 && (
+            <Grid item xs={12} style={{ textAlign: 'center' }}>
+              <Button type="submit" variant="contained" color="secondary">
+                Upload File
+              </Button>
+            </Grid>
+          )}
+        </Grid>
+
+        <Grid item xs={12} style={{ textAlign: 'center' }}>
+          <Button type="submit" variant="contained" color="primary">
+            Submit
+          </Button>&nbsp;&nbsp;
+          <Button
+            variant='contained'
+            color='secondary'
+            href='newmafia'
+            startIcon={<AddLinkIconIcon />}
+            disabled={!addMemberEnabled}  // <-- button disabled initially
+          >
+            Link to Mafia
+          </Button>
         </Grid>
       </Box>
     </Box>
   );
 };
 
-export default MafiaMemberPhotoVideo;
+export default MafiaMemberPhotosVideos;

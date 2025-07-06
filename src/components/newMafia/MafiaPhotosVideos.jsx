@@ -127,7 +127,7 @@ const MafiaPhotosVideos = () => {
             startIcon={<PersonAddAlt1Icon />}
             disabled={!addMemberEnabled}  // <-- button disabled initially
           >
-            Add New Member
+            Add Accused
           </Button>
         </Grid>
       </Box>

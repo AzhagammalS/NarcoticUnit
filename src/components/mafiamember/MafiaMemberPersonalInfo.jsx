@@ -14,7 +14,7 @@ const MafiaMemberPersonalInfo = () => {
     complexion: '',
     idMarks: '',
     height: '',
-    status: 'Active',
+    status: '',
     motherTongue: '',
     languagesKnown: '',
     aadhar: '',
@@ -28,9 +28,9 @@ const MafiaMemberPersonalInfo = () => {
     additionalAddress: '',
     policeStation: '',
     additionalInfo: '',
-    modusOperandi: 'Individual',
+    modusOperandi: '',
     gangBoss: '',
-    caseStatus: 'Active'
+    caseStatus: ''
   });
 
   const handleChange = (e) => {
@@ -46,7 +46,7 @@ const MafiaMemberPersonalInfo = () => {
 
   return (
     <Box p={3}>
-      <Typography variant="h6" gutterBottom>Personal Info</Typography>
+      <Typography variant="h5" component="h1" gutterBottom align="center" sx={{ mb: 3, color: 'primary.main' }}>Personal Info</Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           {/* Upload Photo + Fingerprint (Placeholder for now) */}
@@ -59,6 +59,9 @@ const MafiaMemberPersonalInfo = () => {
               Add Fingerprint
             </Button>
           </Grid>
+          </Grid>
+          
+        <Grid container spacing={2} sx={{mt:2}}>
 
           {/* Name, S/O, DOB */}
           <Grid item xs={12} sm={4}>
@@ -76,6 +79,7 @@ const MafiaMemberPersonalInfo = () => {
               InputLabelProps={{ shrink: true }}
               value={formData.dob}
               onChange={handleChange}
+              style={{width:'220px'}}
             />
           </Grid>
 
@@ -90,6 +94,7 @@ const MafiaMemberPersonalInfo = () => {
               onChange={handleChange}
               fullWidth
               displayEmpty
+              style={{width:'220px'}}
             >
               <MenuItem value="">Select Gender</MenuItem>
               <MenuItem value="Male">Male</MenuItem>
@@ -114,7 +119,19 @@ const MafiaMemberPersonalInfo = () => {
 
           {/* Status, Mother Tongue, Languages Known */}
           <Grid item xs={12} sm={4}>
-            <TextField label="Status" name="status" fullWidth value={formData.status} onChange={handleChange} />
+            <Select
+              name="status"
+              value={formData.status}
+              onChange={handleChange}
+              fullWidth
+              displayEmpty
+              style={{width:'220px'}}
+            >
+              <MenuItem value="">Select Status</MenuItem>
+              <MenuItem value="Active">Active</MenuItem>
+              <MenuItem value="Dormant">Dormant</MenuItem>
+              <MenuItem value="Absconding">Absconding</MenuItem>
+            </Select>
           </Grid>
           <Grid item xs={12} sm={4}>
             <TextField label="Mother Tongue" name="motherTongue" fullWidth value={formData.motherTongue} onChange={handleChange} />
@@ -161,24 +178,50 @@ const MafiaMemberPersonalInfo = () => {
             <TextField label="Police Station Jurisdiction" name="policeStation" fullWidth value={formData.policeStation} onChange={handleChange} />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField label="Additional Info" name="additionalInfo" fullWidth value={formData.additionalInfo} onChange={handleChange} multiline rows={2} />
+            <TextField label="Additional Info" name="additionalInfo" fullWidth value={formData.additionalInfo} onChange={handleChange} multiline rows={2}  
+              style={{width:'220px'}}/>
           </Grid>
 
           {/* Modus Operandi, Gang Boss, Case Status */}
           <Grid item xs={12} sm={4}>
-            <TextField label="Modus Operandi" name="modusOperandi" fullWidth value={formData.modusOperandi} onChange={handleChange} />
-          </Grid>
+            <Select
+            name="modusOperandi"
+            value={formData.modusOperandi}
+            onChange={handleChange}
+            fullWidth
+            displayEmpty
+              style={{width:'220px'}}
+            >
+            <MenuItem value="">Select Modus Operandi</MenuItem>
+            <MenuItem value="Individual">Individual</MenuItem>
+            <MenuItem value="Gang">Gang</MenuItem>
+            </Select>
+            </Grid>
           <Grid item xs={12} sm={4}>
             <TextField label="Gang/Boss Name" name="gangBoss" fullWidth value={formData.gangBoss} onChange={handleChange} />
           </Grid>
           <Grid item xs={12} sm={4}>
-            <TextField label="Status" name="caseStatus" fullWidth value={formData.caseStatus} onChange={handleChange} />
-          </Grid>
+            <Select
+              name="caseStatus"
+              value={formData.caseStatus}
+              onChange={handleChange}
+              fullWidth
+              displayEmpty
+              style={{width:'220px'}}
+            >
+              <MenuItem value="">Select Case Status</MenuItem>
+              <MenuItem value="Active">Active</MenuItem>
+              <MenuItem value="Dormant">Dormant</MenuItem>
+              <MenuItem value="Absconding">Absconding</MenuItem>
+            </Select>
+            </Grid>
         </Grid>
 
           {/* Submit Button */}
-          <Grid item xs={12} sx={{mt:2}} style={{textAlign:'center'}}>
-            <Button type="submit" variant="contained" color="primary">Save And Next</Button>
+          <Grid item xs={12} sx={{ textAlign: 'center', pt: 4 }}>
+            <Button type="submit" variant="contained" color="warning" size="large">
+              Save and Next
+            </Button>
           </Grid>
       </form>
     </Box>

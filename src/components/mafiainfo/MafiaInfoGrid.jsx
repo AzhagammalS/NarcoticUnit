@@ -6,7 +6,8 @@ import {
   Button,
   IconButton,
   MenuItem,
-  Autocomplete
+  Autocomplete,
+  Tooltip
 } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import PersonIcon from '@mui/icons-material/Person';
@@ -15,6 +16,7 @@ import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
 import HistoryIcon from '@mui/icons-material/History';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
+import { Link } from 'react-router-dom';
 
 export default function MafiaGrid() {
   const [formData, setFormData] = useState({
@@ -78,16 +80,69 @@ export default function MafiaGrid() {
       field: 'actions',
       headerName: 'Actions',
       width: 300,
-      renderCell: () => (
-        <>
-          <IconButton color="default" style={{color:'#09b39b'}}><PersonIcon /></IconButton>
-          <IconButton color="default" style={{color:'#de0621'}}><InfoIcon /></IconButton>
-          <IconButton color="default" style={{color:'#e30d64'}}><WorkHistoryIcon /></IconButton>
-          <IconButton color="default" style={{color:'#8308c2'}}><HistoryIcon /></IconButton>
-          <IconButton color="default" style={{color:'#e59e06'}}><CheckCircleIcon /></IconButton>
-          <IconButton color="default" style={{color:'#04d76d'}}><PhotoLibraryIcon /></IconButton>
-        </>
-      )
+     renderCell: (params) => (
+      <>
+        <Tooltip title="Mafia Info">
+          <IconButton
+          component={Link}
+          to={`/newmafia/personal/${params.row.id}`}
+          style={{ color: '#09b39b' }}
+        >
+          <PersonIcon />
+        </IconButton>
+        </Tooltip>
+
+        <Tooltip title="Mafia Additional Info">
+          <IconButton
+          component={Link}
+          to={`/newmafia/info/${params.row.id}`}
+          style={{ color: '#de0621' }}
+        >
+          <InfoIcon />
+        </IconButton>
+        </Tooltip>
+
+        <Tooltip title="Mafia History">
+          <IconButton
+          component={Link}
+          to={`/newmafia/history/${params.row.id}`}
+          style={{ color: '#e30d64' }}
+        >
+          <WorkHistoryIcon />
+        </IconButton>
+        </Tooltip>
+
+        <Tooltip title="Mafia Chronology">
+          <IconButton
+          component={Link}
+          to={`/newmafia/chronology/${params.row.id}`}
+          style={{ color: '#8308c2' }}
+        >
+          <HistoryIcon />
+        </IconButton>
+        </Tooltip>
+
+        <Tooltip title="Case Status">
+          <IconButton
+          component={Link}
+          to={`/newmafia/casestatus/${params.row.id}`}
+          style={{ color: '#e59e06' }}
+        >
+          <CheckCircleIcon />
+        </IconButton>
+        </Tooltip>
+
+        <Tooltip title="Photos and Videos">
+          <IconButton
+          component={Link}
+          to={`/newmafia/photos/${params.row.id}`}
+          style={{ color: '#04d76d' }}
+        >
+          <PhotoLibraryIcon />
+        </IconButton>
+        </Tooltip>
+      </>
+    )
     }
   ];
 
@@ -148,8 +203,8 @@ export default function MafiaGrid() {
           </Grid>
         </Grid>
 
-        <Box sx={{ mt: 2 }}>
-          <Button variant="contained" onClick={handleAdd}>
+        <Box sx={{ mt: 2 }} style={{textAlign:'center'}}>
+          <Button variant="contained" color='warning' onClick={handleAdd}>
             Add
           </Button>
         </Box>

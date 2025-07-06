@@ -1,7 +1,21 @@
 import React, { useState } from 'react';
 import {
-  Box, Grid, TextField, Button, Typography
+  Box,
+  Grid,
+  TextField,
+  Button,
+  Typography,
+  Divider,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  IconButton
 } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 
 const MafiaMemberAddlInfo = () => {
   const [formData, setFormData] = useState({
@@ -12,155 +26,195 @@ const MafiaMemberAddlInfo = () => {
     politicalAffiliation: '',
     casteAffiliation: '',
     additionalInfo: '',
+    crimeDetails: [{ type: '', date: '', station: '', sections: '', status: '', io: '', remarks: '' }],
+    familyDetails: [{ name: '', relation: '', mobile: '', address: '' }],
+    accompliceDetails: [{ name: '', relation: '', mobile: '', address: '' }],
+    frequentPlaces: [{ name: '', relation: '', mobile: '', address: '' }],
+    vehicles: [{ brand: '', make: '', regNumber: '', color: '', owner: '', address: '' }],
+    phones: [{ number: '', provider: '', imei: '', subscriber: '', address: '' }],
+    weapons: [{ type: '', make: '', license: '', owner: '' }],
+    countries: [{ country: '', city: '', activity: '' }]
   });
 
-  const [crimeDetails, setCrimeDetails] = useState([
-    { type: '', date: '', station: '', sections: '', status: '', io: '', remarks: '' }
-  ]);
-
-  const [familyDetails, setFamilyDetails] = useState([
-    { name: '', relation: '', mobile: '', address: '' }
-  ]);
-
-  const [accompliceDetails, setAccompliceDetails] = useState([
-    { name: '', relation: '', mobile: '', address: '' }
-  ]);
-
-  const [frequentPlaces, setFrequentPlaces] = useState([
-    { name: '', relation: '', mobile: '', address: '' }
-  ]);
-
-  const [vehicles, setVehicles] = useState([
-    { brand: '', make: '', regNumber: '', color: '', owner: '', address: '' }
-  ]);
-
-  const [phones, setPhones] = useState([
-    { number: '', provider: '', imei: '', subscriber: '', address: '' }
-  ]);
-
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
-  const handleDynamicChange = (setter, index, field, value) => {
-    setter(prev => {
-      const updated = [...prev];
-      updated[index][field] = value;
-      return updated;
-    });
+  const handleTableChange = (e, index, section) => {
+    const { name, value } = e.target;
+    const updated = [...formData[section]];
+    updated[index][name] = value;
+    setFormData((prev) => ({
+      ...prev,
+      [section]: updated
+    }));
   };
 
-  const handleAddRow = (setter, emptyRow) => {
-    setter(prev => [...prev, emptyRow]);
+  const addRow = (section, emptyRow) => {
+    setFormData((prev) => ({
+      ...prev,
+      [section]: [...prev[section], emptyRow]
+    }));
+  };
+
+  const removeRow = (section, index) => {
+    setFormData((prev) => ({
+      ...prev,
+      [section]: prev[section].filter((_, i) => i !== index)
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = {
-      ...formData,
-      crimeDetails,
-      familyDetails,
-      accompliceDetails,
-      frequentPlaces,
-      vehicles,
-      phones
-    };
-    console.log(data);
-    // Submit logic here
+    console.log('Submitted Data:', formData);
+    alert('Form submitted. Check console for data!');
   };
+
+  const capitalizeHeader = (key) => {
+    return key
+      .replace(/([A-Z])/g, ' $1')
+      .replace(/^./, (str) => str.toUpperCase());
+  };
+
+  const renderTable = (section, title, columns, emptyRow) => (
+    <Grid item xs={12}>
+      <Typography variant="h6" sx={{ mt: 3, mb: 1}}>
+        {title}
+      </Typography>
+      <TableContainer>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              {columns.map((col) => (
+                <TableCell key={col}>{capitalizeHeader(col)}</TableCell>
+              ))}
+              <TableCell align="center">Action</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {formData[section].map((row, i) => (
+              <TableRow key={i}>
+                {columns.map((col) => (
+                  <TableCell key={col}>
+                    <TextField
+                      name={col}
+                      value={row[col]}
+                      onChange={(e) => handleTableChange(e, i, section)}
+                      variant="standard"
+                      fullWidth
+                      type={col === 'date' ? 'date' : 'text'}
+                      InputLabelProps={col === 'date' ? { shrink: true } : {}}
+                    />
+                  </TableCell>
+                ))}
+                <TableCell align="center">
+                  <IconButton color="error" onClick={() => removeRow(section, i)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Button
+        onClick={() => addRow(section, emptyRow)}
+        variant="outlined"
+        startIcon={<AddIcon />}
+        sx={{ mt: 1 }}
+      >
+        Add Row
+      </Button>
+    </Grid>
+  );
 
   return (
     <Box p={3}>
-      <Typography variant="h6" gutterBottom>Additional Info</Typography>
+      <Typography variant="h5" component="h1" gutterBottom align="center" sx={{ mb: 3, color: 'primary.main' }}>
+        Accused Additional Information
+      </Typography>
+      <Divider sx={{ mb: 2 }} />
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField label="Adept In" name="adeptIn" fullWidth value={formData.adeptIn} onChange={handleChange} />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField label="Weapons Normally Used" name="weaponsUsed" fullWidth value={formData.weaponsUsed} onChange={handleChange} />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField label="Addiction If Any" name="addiction" fullWidth value={formData.addiction} onChange={handleChange} />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField label="Area of Operation" name="areaOfOperation" fullWidth value={formData.areaOfOperation} onChange={handleChange} />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField label="Political Affiliation" name="politicalAffiliation" fullWidth value={formData.politicalAffiliation} onChange={handleChange} />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField label="Caste Organization Affiliation" name="casteAffiliation" fullWidth value={formData.casteAffiliation} onChange={handleChange} />
-          </Grid>
-
-          {/* Previous Crime Details */}
-          <Grid item xs={12}><Typography variant="subtitle1">Previous Crime Details</Typography></Grid>
-          {crimeDetails.map((row, i) => (
-            <Grid container spacing={1} key={i}>
-              <Grid item xs={12} sm={2}>
-                <TextField label="Type" value={row.type} onChange={e => handleDynamicChange(setCrimeDetails, i, 'type', e.target.value)} fullWidth />
-              </Grid>
-              <Grid item xs={12} sm={2}>
-                <TextField type="date" label="Date" InputLabelProps={{ shrink: true }}
-                  value={row.date} onChange={e => handleDynamicChange(setCrimeDetails, i, 'date', e.target.value)} fullWidth />
-              </Grid>
-              <Grid item xs={12} sm={2}>
-                <TextField label="Station" value={row.station} onChange={e => handleDynamicChange(setCrimeDetails, i, 'station', e.target.value)} fullWidth />
-              </Grid>
-              <Grid item xs={12} sm={1}>
-                <TextField label="CrPC" value={row.sections} onChange={e => handleDynamicChange(setCrimeDetails, i, 'sections', e.target.value)} fullWidth />
-              </Grid>
-              <Grid item xs={12} sm={1}>
-                <TextField label="Status" value={row.status} onChange={e => handleDynamicChange(setCrimeDetails, i, 'status', e.target.value)} fullWidth />
-              </Grid>
-              <Grid item xs={12} sm={2}>
-                <TextField label="IO" value={row.io} onChange={e => handleDynamicChange(setCrimeDetails, i, 'io', e.target.value)} fullWidth />
-              </Grid>
-              <Grid item xs={12} sm={2}>
-                <TextField label="Remarks" value={row.remarks} onChange={e => handleDynamicChange(setCrimeDetails, i, 'remarks', e.target.value)} fullWidth />
-              </Grid>
+          {[
+            { label: 'Adept In', name: 'adeptIn' },
+            { label: 'Weapons Normally Used', name: 'weaponsUsed' },
+            { label: 'Addiction If Any', name: 'addiction' },
+            { label: 'Area of Operation', name: 'areaOfOperation' },
+            { label: 'Political Affiliation', name: 'politicalAffiliation' },
+            { label: 'Caste Organization Affiliation', name: 'casteAffiliation' }
+          ].map((item) => (
+            <Grid item xs={12} sm={6} key={item.name}>
+              <TextField
+                label={item.label}
+                name={item.name}
+                fullWidth
+                value={formData[item.name]}
+                onChange={handleInputChange}
+              />
             </Grid>
           ))}
-          <Grid item xs={12}>
-            <Button onClick={() => handleAddRow(setCrimeDetails, { type: '', date: '', station: '', sections: '', status: '', io: '', remarks: '' })}>
-              + Add More
-            </Button>
-          </Grid>
 
-          {/* Similar sections for Family, Accomplice, Frequent Places, Vehicles, Phones */}
-          {[
-            { label: 'Family/Friend Details', state: familyDetails, setter: setFamilyDetails, empty: { name: '', relation: '', mobile: '', address: '' } },
-            { label: 'Accomplice Details', state: accompliceDetails, setter: setAccompliceDetails, empty: { name: '', relation: '', mobile: '', address: '' } },
-            { label: 'Frequented Places', state: frequentPlaces, setter: setFrequentPlaces, empty: { name: '', relation: '', mobile: '', address: '' } },
-            { label: 'Types of Vehicles Used', state: vehicles, setter: setVehicles, empty: { brand: '', make: '', regNumber: '', color: '', owner: '', address: '' } },
-            { label: 'Details of Phone numbers used', state: phones, setter: setPhones, empty: { number: '', provider: '', imei: '', subscriber: '', address: '' } },
-          ].map((section, idx) => (
-            <React.Fragment key={idx}>
-              <Grid item xs={12}><Typography variant="subtitle1">{section.label}</Typography></Grid>
-              {section.state.map((row, i) => (
-                <Grid container spacing={1} key={i}>
-                  {Object.keys(section.empty).map((field, j) => (
-                    <Grid item xs={12} sm={2} key={j}>
-                      <TextField
-                        label={field.charAt(0).toUpperCase() + field.slice(1)}
-                        value={row[field]}
-                        onChange={e => handleDynamicChange(section.setter, i, field, e.target.value)}
-                        fullWidth
-                      />
-                    </Grid>
-                  ))}
-                </Grid>
-              ))}
-              <Grid item xs={12}>
-                <Button onClick={() => handleAddRow(section.setter, section.empty)}>
-                  + Add More
-                </Button>
-              </Grid>
-            </React.Fragment>
-          ))}
+          {renderTable(
+            'crimeDetails',
+            'Previous Crime Details',
+            ['type', 'date', 'station', 'sections', 'status', 'io', 'remarks'],
+            { type: '', date: '', station: '', sections: '', status: '', io: '', remarks: '' }
+          )}
 
-          {/* Additional info */}
+          {renderTable(
+            'familyDetails',
+            'Family/Friend Details',
+            ['name', 'relation', 'mobile', 'address'],
+            { name: '', relation: '', mobile: '', address: '' }
+          )}
+
+          {renderTable(
+            'accompliceDetails',
+            'Accomplice Details',
+            ['name', 'relation', 'mobile', 'address'],
+            { name: '', relation: '', mobile: '', address: '' }
+          )}
+
+          {renderTable(
+            'frequentPlaces',
+            'Frequented Places',
+            ['name', 'relation', 'mobile', 'address'],
+            { name: '', relation: '', mobile: '', address: '' }
+          )}
+
+          {renderTable(
+            'vehicles',
+            'Vehicles Used',
+            ['brand', 'make', 'regNumber', 'color', 'owner', 'address'],
+            { brand: '', make: '', regNumber: '', color: '', owner: '', address: '' }
+          )}
+
+          {renderTable(
+            'phones',
+            'Phone Numbers Used',
+            ['number', 'provider', 'imei', 'subscriber', 'address'],
+            { number: '', provider: '', imei: '', subscriber: '', address: '' }
+          )}
+
+          {renderTable(
+            'weapons',
+            'Weapons Information',
+            ['type', 'make', 'license', 'owner'],
+            { type: '', make: '', license: '', owner: '' }
+          )}
+
+          {renderTable(
+            'countries',
+            'Countries of Operation',
+            ['country', 'city', 'activity'],
+            { country: '', city: '', activity: '' }
+          )}
+
           <Grid item xs={12}>
             <TextField
               label="Any other additional information"
@@ -169,14 +223,16 @@ const MafiaMemberAddlInfo = () => {
               multiline
               rows={3}
               value={formData.additionalInfo}
-              onChange={handleChange}
+              onChange={handleInputChange}
             />
           </Grid>
-
-          {/* Submit */}
-          <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary">Save and Next</Button>
-          </Grid>
+        </Grid>
+        
+        {/* Submit Button */}
+        <Grid item xs={12} sx={{ textAlign: 'center', pt: 4 }}>
+          <Button type="submit" variant="contained" color="warning" size="large">
+            Save and Next
+          </Button>
         </Grid>
       </form>
     </Box>

@@ -11,7 +11,7 @@ import OtherDepartmentInputs from './pages/OtherDepartmentInputs';
 
 function App() {
   return (
-    <BrowserRouter basename="/CRU/">
+    <BrowserRouter>
       <Routes>
         <Route path='/' index element={<LandingPage />} />
         <Route path='otherdepartmentinputs' element={<OtherDepartmentInputs />} />
@@ -20,6 +20,7 @@ function App() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="mafiainfo" element={<MafiaInfo />} />
           <Route path="newmafia" element={<NewMafia />} />
+          <Route path="/newmafia/:tabName/:id" element={<NewMafia/>} />
           <Route path='mafiamember' element={<MafiaMember />} />
           <Route path='mafiachart' element={<MafiaChart /> } />
           <Route path='isinputs' element={<IsInputs /> } />
