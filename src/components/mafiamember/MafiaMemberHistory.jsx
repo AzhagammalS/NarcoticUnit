@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import {
-  Box, Grid, TextField, Button, Typography
+  Box, Grid, TextField, Button, Typography,
+  Divider
 } from '@mui/material';
+import AccusedHistoryTimeline from './AccusedHistoryTimeline';
 
 const MafiaMemberHistory = () => {
   const [formData, setFormData] = useState({
@@ -31,7 +33,9 @@ const MafiaMemberHistory = () => {
 
   return (
     <Box p={3}>
-      <Typography variant="h6" gutterBottom>History</Typography>
+    <Typography variant="h5" component="h1" gutterBottom align="center" sx={{ mb: 3, color: 'primary.main' }}>
+      Accused History
+    </Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={4}>
@@ -43,6 +47,7 @@ const MafiaMemberHistory = () => {
               fullWidth
               value={formData.dob}
               onChange={handleChange}
+              style={{width:'220px'}}
             />
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -119,6 +124,7 @@ const MafiaMemberHistory = () => {
               fullWidth
               value={formData.joinedGangOn}
               onChange={handleChange}
+              style={{width:'220px'}}
             />
           </Grid>
 
@@ -131,6 +137,7 @@ const MafiaMemberHistory = () => {
               rows={2}
               value={formData.previousGangDetails}
               onChange={handleChange}
+              style={{width:'220px'}}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -142,16 +149,19 @@ const MafiaMemberHistory = () => {
               rows={2}
               value={formData.reasonToJoinGang}
               onChange={handleChange}
+              style={{width:'220px'}}
             />
-          </Grid>
-
-          <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary">
-              Save and Next
-            </Button>
           </Grid>
         </Grid>
       </form>
+      {/* Save and Next Button */}
+          <Grid item xs={12} style={{textAlign:'center'}}>
+            <Button variant="contained" sx={{ mt: 2, bgcolor: '#ffcc00', color: 'black', '&:hover': { bgcolor: '#e6b800' } }}>
+              Save and Next
+            </Button>
+          </Grid>
+        <Divider sx={{ mt:2, mb: 2 }} />
+        <AccusedHistoryTimeline />
     </Box>
   );
 };

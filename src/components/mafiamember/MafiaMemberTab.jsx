@@ -5,12 +5,6 @@ import AddLinkIcon  from '@mui/icons-material/AddLink';
 function MafiaMemberTab({ setActiveTab }) {
   return (
     <div>
-      <div style={{ textAlign: 'right', marginTop:'-50px' }}>
-        <Button variant='contained' color='primary' href='newmafia'>
-          <AddLinkIcon /> &nbsp;Link to Mafia
-        </Button>
-      </div>
-
       <div className="tabbtnbg" style={{ gap: 10 }}>
         <button className="tabsparkle btn1" onClick={() => setActiveTab('personal')}>
           <span>Personal Info</span>

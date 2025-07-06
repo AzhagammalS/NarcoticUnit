@@ -2,7 +2,7 @@ import React from 'react'
 
 function MafiaMemberCaseStatus() {
   return (
-    <div>MafiaMemberCaseStatus</div>
+    <div>Waiting for Case List..</div>
   )
 }
 

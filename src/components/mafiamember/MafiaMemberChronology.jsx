@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import {
-  Box, Grid, TextField, Button, Typography
+  Box, Grid, TextField, Button, Typography,
+  Divider
 } from '@mui/material';
+import AccusedChronologyTimeline from './AccusedChronologyTimeline';
 
 const MafiaMemberChronology = () => {
   const [formData, setFormData] = useState({
@@ -30,7 +32,9 @@ const MafiaMemberChronology = () => {
 
   return (
     <Box p={3}>
-      <Typography variant="h6" gutterBottom>Chronology</Typography>
+      <Typography variant="h5" component="h1" gutterBottom align="center" sx={{ mb: 3, color: 'primary.main' }}>
+        Accused Chronology
+      </Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={3}>
@@ -131,19 +135,32 @@ const MafiaMemberChronology = () => {
               name="description"
               fullWidth
               multiline
-              rows={3}
+              rows={2}
               value={formData.description}
               onChange={handleChange}
             />
           </Grid>
+        </Grid>
 
-          <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary">
+          
+          <Grid item xs={12} style={{textAlign:'center'}}>
+            <Button
+              variant="contained"
+              sx={{
+                mt: 2,
+                bgcolor: '#ffcc00', // Yellow background
+                color: 'black',      // Black text
+                '&:hover': {
+                  bgcolor: '#e6b800', // Darker yellow on hover
+                },
+              }}
+            >
               Save and Next
             </Button>
           </Grid>
-        </Grid>
       </form>
+      <Divider sx={{ mt: 2 }} />
+      <AccusedChronologyTimeline />
     </Box>
   );
 };
