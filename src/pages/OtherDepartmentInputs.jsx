@@ -8,7 +8,7 @@ function OtherDepartmentInputs() {
     <Box
       sx={{
         width: '100vw',
-        height: '100vh',
+        height: '130vh',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'top',
