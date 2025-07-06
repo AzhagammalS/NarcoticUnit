@@ -193,7 +193,7 @@ function OtherDepartmentInputsForm() {
               multiline
               rows={1}
               fullWidth
-              sx={{width:'300px'}}
+              sx={{width:'220px'}}
               
             />
           </Grid>

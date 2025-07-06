@@ -72,7 +72,7 @@ export default function Navbar({ children }) {
       theme={demoTheme}
       branding={{
         logo: <img src={logo} alt="Logo"  />,
-        title: 'Enforcement Directorate CID Unit', // Optional: change "Toolpad" text next to logo
+        title: 'Narcotic Unit', // Optional: change "Toolpad" text next to logo
   }}
     >
       <DashboardLayouts>

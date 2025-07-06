@@ -10,6 +10,7 @@ import Bedtime from '@mui/icons-material/Bedtime';
 import LightMode from '@mui/icons-material/LightMode';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
+import logo from '../../assets/images/logo.png'
 
 const drawerWidth = 240;
 const navItems = [
@@ -41,7 +42,7 @@ function LandingNavBar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        Enforcement Directorate CID Unit
+        {/* Enforcement Directorate CID Unit */}
       </Typography>
       <Divider />
       <List>
@@ -86,12 +87,13 @@ function LandingNavBar(props) {
             >
               <MenuIcon />
             </IconButton>
+            <img src={logo} style={{width:'50px'}}/>
             <Typography
               variant="h6"
               component="div"
               sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}
             >
-              Enforcement Directorate CID Unit
+              {/* Enforcement Directorate CID Unit */}
             </Typography>
             <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}>
               {navItems.map((item) => (

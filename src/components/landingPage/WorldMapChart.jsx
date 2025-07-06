@@ -66,7 +66,7 @@ export default function SeizedLineChart() {
   return (
     <div>
       {mapReady ? (
-        <ReactECharts option={option} style={{ height: '550px', width: '900px' }} />
+        <ReactECharts option={option} style={{ height: '550px', width: '740px' }} />
       ) : (
         <p>Loading world map...</p>
       )}

@@ -58,7 +58,7 @@ export default function SriLankaDrugMap() {
   return (
     <div>
       {mapReady ? (
-        <ReactECharts option={option} style={{ height: '550px', width: '500px' }} />
+        <ReactECharts option={option} style={{ height: '550px', width: '400px' }} />
       ) : (
         <p>Loading Sri Lanka map...</p>
       )}

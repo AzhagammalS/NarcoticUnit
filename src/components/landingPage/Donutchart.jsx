@@ -95,7 +95,7 @@ function Donutchart({ title, data }) {
       </Typography>
       <PieChart
         height={310}
-        width={345}
+        width={270}
         series={[
           {
             data,
@@ -140,7 +140,7 @@ export default function DonutChartsGrid() {
             </Box>
             <PieChart
               height={300}
-              width={345}
+              width={270}
               series={[
                 {
                   data: drugSeizurePeriodData[drugPeriod],
@@ -176,7 +176,7 @@ export default function DonutChartsGrid() {
             </Box>
             <PieChart
               height={300}
-              width={375}
+              width={270}
               series={[
                 {
                   data: provinceArrestData[arrestPeriod],
