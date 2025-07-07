@@ -119,79 +119,77 @@ export default function DonutChartsGrid() {
   };
 
   return (
-    <Grid container spacing={2} sx={{ padding: '30px', marginTop: '20px' }}>
-      <Grid container item xs={12} spacing={2}>
-        <Grid item xs={12} md={4}>
-          <Box sx={glassStyle}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-              <Typography variant="h6">Drugs Seized in Last One</Typography>
-              <FormControl size="small">
-                <InputLabel>Period</InputLabel>
-                <Select value={drugPeriod} label="Period" onChange={handleDrugPeriodChange}>
-                  <MenuItem value="year">Year</MenuItem>
-                  <MenuItem value="month">Month</MenuItem>
-                  <MenuItem value="week">Week</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-            <Box sx={{ width: '100%', aspectRatio: '1 / 1' }}>
-              <PieChart
-                series={[
-                  {
-                    data: drugSeizurePeriodData[drugPeriod],
-                    innerRadius: 70,
-                    arcLabel: (params) => params.label ?? '',
-                    arcLabelMinAngle: 15,
-                    valueFormatter,
-                  },
-                ]}
-                sx={{
-                  width: '100%',
-                  height: '100%',
-                }}
-              />
-            </Box>
+    <Grid container sx={{ mt: 2 }}>
+      <Grid item xs={12} md={4} display="flex" justifyContent="center">
+        <Box sx={glassStyle} width="95%" maxWidth="100%">
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+            <Typography variant="h6">Drugs Seized in Last One</Typography>
+            <FormControl size="small">
+              <InputLabel>Period</InputLabel>
+              <Select value={drugPeriod} label="Period" onChange={handleDrugPeriodChange}>
+                <MenuItem value="year">Year</MenuItem>
+                <MenuItem value="month">Month</MenuItem>
+                <MenuItem value="week">Week</MenuItem>
+              </Select>
+            </FormControl>
           </Box>
-        </Grid>
+          <Box sx={{ width: '100%', aspectRatio: '1 / 1' }}>
+            <PieChart
+              series={[
+                {
+                  data: drugSeizurePeriodData[drugPeriod],
+                  innerRadius: 70,
+                  arcLabel: (params) => params.label ?? '',
+                  arcLabelMinAngle: 15,
+                  valueFormatter,
+                },
+              ]}
+              sx={{
+                width: '100%',
+                height: '100%',
+              }}
+            />
+          </Box>
+        </Box>
+      </Grid>
 
-        <Grid item xs={12} md={4}>
-          <Box sx={glassStyle}>
-            <Donutchart title="Country of Origin for Drugs" data={countryOfOriginData} />
-          </Box>
-        </Grid>
+      <Grid item xs={12} md={4} display="flex" justifyContent="center">
+        <Box sx={glassStyle} width="95%" maxWidth="100%">
+          <Donutchart title="Country of Origin for Drugs" data={countryOfOriginData} />
+        </Box>
+      </Grid>
 
-        <Grid item xs={12} md={4}>
-          <Box sx={glassStyle}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-              <Typography variant="h6">Arrests Made in Province</Typography>
-              <FormControl size="small">
-                <InputLabel>Period</InputLabel>
-                <Select value={arrestPeriod} label="Period" onChange={handlePeriodChange}>
-                  <MenuItem value="year">Year</MenuItem>
-                  <MenuItem value="month">Month</MenuItem>
-                  <MenuItem value="week">Week</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-            <Box sx={{ width: '100%', aspectRatio: '1 / 1' }}>
-              <PieChart
-                series={[
-                  {
-                    data: provinceArrestData[arrestPeriod],
-                    innerRadius: 70,
-                    arcLabel: (params) => params.label ?? '',
-                    arcLabelMinAngle: 15,
-                    valueFormatter,
-                  },
-                ]}
-                sx={{
-                  width: '100%',
-                  height: '100%',
-                }}
-              />
-            </Box>
+      <Grid item xs={12} md={4} display="flex" justifyContent="center">
+        <Box sx={glassStyle} width="95%" maxWidth="100%">
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+            <Typography variant="h6">Arrests Made in Province</Typography>
+            <FormControl size="small">
+              <InputLabel>Period</InputLabel>
+              <Select value={arrestPeriod} label="Period" onChange={handlePeriodChange}>
+                <MenuItem value="year">Year</MenuItem>
+                <MenuItem value="month">Month</MenuItem>
+                <MenuItem value="week">Week</MenuItem>
+              </Select>
+            </FormControl>
           </Box>
-        </Grid>
+          <Box sx={{ width: '100%', aspectRatio: '1 / 1' }}>
+            <PieChart
+              series={[
+                {
+                  data: provinceArrestData[arrestPeriod],
+                  innerRadius: 70,
+                  arcLabel: (params) => params.label ?? '',
+                  arcLabelMinAngle: 15,
+                  valueFormatter,
+                },
+              ]}
+              sx={{
+                width: '100%',
+                height: '100%',
+              }}
+            />
+          </Box>
+        </Box>
       </Grid>
     </Grid>
   );
