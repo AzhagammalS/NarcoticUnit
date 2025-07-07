@@ -106,9 +106,9 @@ function LandingPageLayout() {
         <LandingPgCard />
       </Box>
 
-      <Grid display="block">
-          <Donutchart />
-      </Grid>
+      <Box display="block">
+        <Donutchart />
+      </Box>
 
        
 

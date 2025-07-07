@@ -12,9 +12,10 @@ const glassStyle = {
   backdropFilter: 'blur(5px)',
   WebkitBackdropFilter: 'blur(5px)',
   border: '1px solid rgba(255, 255, 255, 0.3)',
-  // padding: '10px',
   color: '#000',
+  padding: '10px',
 };
+
 const drugSeizurePeriodData = {
   year: [
     { label: 'Heroin', value: 45 },
@@ -39,7 +40,6 @@ const drugSeizurePeriodData = {
   ],
 };
 
-
 const countryOfOriginData = [
   { label: 'India', value: 40 },
   { label: 'Pakistan', value: 25 },
@@ -55,14 +55,9 @@ const provinceArrestData = {
     { label: 'Southern', value: 20 },
     { label: 'Northern', value: 10 },
     { label: 'Eastern', value: 15 },
-    // { label: 'North Western', value: 25 },
-    // { label: 'North Central', value: 12 },
     { label: 'Uva', value: 8 },
-    // { label: 'Sabaragamuwa', value: 18 },
   ],
   month: [
-    // { label: 'Western', value: 15 },
-    // { label: 'Central', value: 10 },
     { label: 'Southern', value: 8 },
     { label: 'Northern', value: 5 },
     { label: 'Eastern', value: 7 },
@@ -79,33 +74,34 @@ const provinceArrestData = {
     { label: 'Eastern', value: 2 },
     { label: 'North Western', value: 2 },
     { label: 'North Central', value: 1 },
-    // { label: 'Uva', value: 1 },
-    // { label: 'Sabaragamuwa', value: 1 },
   ],
 };
-
 
 const valueFormatter = (item) => `${item.value}%`;
 
 function Donutchart({ title, data }) {
   return (
-    <Box sx={{ width: '100%' ,padding:'10px'}}>
+    <Box width="100%" height="auto">
       <Typography variant="h6" align="center" gutterBottom>
         {title}
       </Typography>
-      <PieChart
-        height={310}
-        width={270}
-        series={[
-          {
-            data,
-            innerRadius: 70,
-            arcLabel: (params) => params.label ?? '',
-            arcLabelMinAngle: 15,
-            valueFormatter,
-          },
-        ]}
-      />
+      <Box sx={{ width: '100%', aspectRatio: '1 / 1' }}>
+        <PieChart
+          series={[
+            {
+              data,
+              innerRadius: 70,
+              arcLabel: (params) => params.label ?? '',
+              arcLabelMinAngle: 15,
+              valueFormatter,
+            },
+          ]}
+          sx={{
+            width: '100%',
+            height: '100%',
+          }}
+        />
+      </Box>
     </Box>
   );
 }
@@ -123,10 +119,10 @@ export default function DonutChartsGrid() {
   };
 
   return (
-    <Grid container display="flex" spacing={2} style={{ padding: '30px', marginTop: '20px' }}>
+    <Grid container spacing={2} sx={{ padding: '30px', marginTop: '20px' }}>
       <Grid container item xs={12} spacing={2}>
         <Grid item xs={12} md={4}>
-          <Box sx={glassStyle} style={{ padding: '10px' }}>
+          <Box sx={glassStyle}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
               <Typography variant="h6">Drugs Seized in Last One</Typography>
               <FormControl size="small">
@@ -138,22 +134,25 @@ export default function DonutChartsGrid() {
                 </Select>
               </FormControl>
             </Box>
-            <PieChart
-              height={300}
-              width={270}
-              series={[
-                {
-                  data: drugSeizurePeriodData[drugPeriod],
-                  innerRadius: 70,
-                  arcLabel: (params) => params.label ?? '',
-                  arcLabelMinAngle: 15,
-                  valueFormatter,
-                },
-              ]}
-            />
+            <Box sx={{ width: '100%', aspectRatio: '1 / 1' }}>
+              <PieChart
+                series={[
+                  {
+                    data: drugSeizurePeriodData[drugPeriod],
+                    innerRadius: 70,
+                    arcLabel: (params) => params.label ?? '',
+                    arcLabelMinAngle: 15,
+                    valueFormatter,
+                  },
+                ]}
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                }}
+              />
+            </Box>
           </Box>
         </Grid>
-
 
         <Grid item xs={12} md={4}>
           <Box sx={glassStyle}>
@@ -161,8 +160,8 @@ export default function DonutChartsGrid() {
           </Box>
         </Grid>
 
-        <Grid item xs={12 } md={4}>
-          <Box sx={glassStyle} style={{ padding:'10px' }}>
+        <Grid item xs={12} md={4}>
+          <Box sx={glassStyle}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
               <Typography variant="h6">Arrests Made in Province</Typography>
               <FormControl size="small">
@@ -174,19 +173,23 @@ export default function DonutChartsGrid() {
                 </Select>
               </FormControl>
             </Box>
-            <PieChart
-              height={300}
-              width={270}
-              series={[
-                {
-                  data: provinceArrestData[arrestPeriod],
-                  innerRadius: 70,
-                  arcLabel: (params) => params.label ?? '',
-                  arcLabelMinAngle: 15,
-                  valueFormatter,
-                },
-              ]}
-            />
+            <Box sx={{ width: '100%', aspectRatio: '1 / 1' }}>
+              <PieChart
+                series={[
+                  {
+                    data: provinceArrestData[arrestPeriod],
+                    innerRadius: 70,
+                    arcLabel: (params) => params.label ?? '',
+                    arcLabelMinAngle: 15,
+                    valueFormatter,
+                  },
+                ]}
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                }}
+              />
+            </Box>
           </Box>
         </Grid>
       </Grid>
