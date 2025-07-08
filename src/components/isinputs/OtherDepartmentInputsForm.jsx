@@ -142,7 +142,7 @@ function OtherDepartmentInputsForm() {
   return (
     <Box sx={{ p: 2 }}>
       <Typography variant="h5" align="center" gutterBottom sx={{ mb: 3 }}>
-        Mafia Case Entry
+        Customs Department Input
       </Typography>
 
       <form onSubmit={handleSubmit}>
