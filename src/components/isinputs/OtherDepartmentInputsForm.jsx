@@ -9,16 +9,16 @@ import {
 } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState } from 'react';
-import EditSquareIcon from '@mui/icons-material/EditSquare'
-import DeleteIcon from '@mui/icons-material/Delete'
+import EditSquareIcon from '@mui/icons-material/EditSquare';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function OtherDepartmentInputsForm() {
   const [formData, setFormData] = useState({
-    caseNo: '',
-    filingDate: '',
-    court: '',
-    section: '',
-    accusedDetails: '',
+    date: '',
+    location: '',
+    mafia: '',
+    mafiaMember: '',
+    description: '',
     evidence: null,
     priority: '',
   });
@@ -45,16 +45,16 @@ function OtherDepartmentInputsForm() {
     } else {
       setRecords([
         ...records,
-        { ...formData, id: Date.now() }, // unique id
+        { ...formData, id: Date.now() },
       ]);
     }
 
     setFormData({
-      caseNo: '',
-      filingDate: '',
-      court: '',
-      section: '',
-      accusedDetails: '',
+      date: '',
+      location: '',
+      mafia: '',
+      mafiaMember: '',
+      description: '',
       evidence: null,
       priority: '',
     });
@@ -73,11 +73,11 @@ function OtherDepartmentInputsForm() {
   };
 
   const columns = [
-    { field: 'caseNo', headerName: 'Case No', flex: 1 },
-    { field: 'filingDate', headerName: 'Date of Filing', flex: 1 },
-    { field: 'court', headerName: 'Court', flex: 1 },
-    { field: 'section', headerName: 'Section', flex: 1 },
-    { field: 'accusedDetails', headerName: 'Accused', flex: 1 },
+    { field: 'date', headerName: 'Date', flex: 1 },
+    { field: 'location', headerName: 'Location', flex: 1 },
+    { field: 'mafia', headerName: 'Mafia', flex: 1 },
+    { field: 'mafiaMember', headerName: 'Mafia Member', flex: 1 },
+    { field: 'description', headerName: 'Description', flex: 1 },
     {
       field: 'priority',
       headerName: 'Priority',
@@ -87,36 +87,36 @@ function OtherDepartmentInputsForm() {
           params.value === 'High'
             ? '#f44336'
             : params.value === 'Medium'
-            ? '#ffeb3b'
-            : '#4caf50';
+              ? '#ffeb3b'
+              : '#4caf50';
         const textColor = params.value === 'Medium' ? 'black' : 'white';
         return (
           <Box
             sx={{
-                backgroundColor: color,
-                color: textColor,
-                px: 0.5,         // small horizontal padding
-                py: 0.1,         // small vertical padding for thin background
-                borderRadius: 10,
-                display: 'inline-block',
-                lineHeight: 1.5,   // remove extra line height
-                fontSize: '0.875rem' // optional: smaller text
+              backgroundColor: color,
+              color: textColor,
+              px: 0.5,
+              py: 0.1,
+              borderRadius: 10,
+              display: 'inline-block',
+              lineHeight: 1.5,
+              fontSize: '0.875rem'
             }}
-            >
+          >
             {params.value}
           </Box>
         );
       },
     },
     {
-        field: 'evidence',
-        headerName: 'Evidence',
-        flex: 1,
-        valueGetter: (params) => {
+      field: 'evidence',
+      headerName: 'Evidence',
+      flex: 1,
+      valueGetter: (params) => {
         if (!params || !params.row) return 'N/A';
-            return params.row.evidence?.name || 'N/A';
-        }
-        },
+        return params.row.evidence?.name || 'N/A';
+      }
+    },
     {
       field: 'actions',
       headerName: 'Actions',
@@ -124,8 +124,16 @@ function OtherDepartmentInputsForm() {
       sortable: false,
       renderCell: (params) => (
         <>
-          <Tooltip title="Edit"><IconButton onClick={() => handleEdit(params.row.id)} color="warning"><EditSquareIcon /></IconButton></Tooltip>
-          <Tooltip title="Delete"><IconButton onClick={() => handleDelete(params.row.id)} color="error"><DeleteIcon /></IconButton></Tooltip>
+          <Tooltip title="Edit">
+            <IconButton onClick={() => handleEdit(params.row.id)} color="warning">
+              <EditSquareIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Delete">
+            <IconButton onClick={() => handleDelete(params.row.id)} color="error">
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
         </>
       ),
     },
@@ -133,94 +141,87 @@ function OtherDepartmentInputsForm() {
 
   return (
     <Box sx={{ p: 2 }}>
-      <Typography variant="h5" component="h1" gutterBottom align="center" sx={{ mb: 3, color: 'black' }}>
-        Customs Department Input
+      <Typography variant="h5" align="center" gutterBottom sx={{ mb: 3 }}>
+        Mafia Case Entry
       </Typography>
 
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
             <TextField
-              label="Case No"
-              name="caseNo"
-              value={formData.caseNo}
-              onChange={handleChange}
-              fullWidth
-            />
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <TextField
-              label="Date of Filing"
-              name="filingDate"
+              label="Date"
+              name="date"
               type="date"
-              value={formData.filingDate}
+              value={formData.date}
               onChange={handleChange}
               InputLabelProps={{ shrink: true }}
               fullWidth
-              
+              style={{width:'220px'}}
             />
           </Grid>
 
           <Grid item xs={12} md={6}>
             <TextField
-              label="Court"
-              name="court"
-              value={formData.court}
+              label="Location"
+              name="location"
+              value={formData.location}
               onChange={handleChange}
               fullWidth
-              
             />
           </Grid>
 
           <Grid item xs={12} md={6}>
             <TextField
-              label="Section"
-              name="section"
-              value={formData.section}
+              label="Mafia"
+              name="mafia"
+              value={formData.mafia}
               onChange={handleChange}
               fullWidth
-              
+            />
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <TextField
+              label="Mafia Member"
+              name="mafiaMember"
+              value={formData.mafiaMember}
+              onChange={handleChange}
+              fullWidth
             />
           </Grid>
 
           <Grid item xs={12}>
             <TextField
-              label="Accused Details"
-              name="accusedDetails"
-              value={formData.accusedDetails}
+              label="Description"
+              name="description"
+              value={formData.description}
               onChange={handleChange}
               multiline
               rows={1}
               fullWidth
-              sx={{width:'220px'}}
-              
+              style={{width:'220px'}}
             />
           </Grid>
 
           <Grid item xs={12} md={6}>
             <TextField
-                select
-                name="priority"
-                value={formData.priority}
-                onChange={handleChange}
-                fullWidth
-                SelectProps={{ native: true }}
-                sx={{width:'220px'}}
-                >
-                <option value="">Select Priority</option>
-                <option value="High">High</option>
-                <option value="Medium">Medium</option>
-                <option value="Low">Low</option>
-                </TextField>
+              select
+              name="priority"
+              value={formData.priority}
+              onChange={handleChange}
+              fullWidth
+              SelectProps={{ native: true }}
+              style={{width:'220px'}}
+            >
+              <option value="">Select Priority</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </TextField>
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <Button
-              variant="contained"
-              component="label"
-              fullWidth
-            >
+            <Button variant="contained" component="label" fullWidth>
               Upload Evidence
               <input
                 type="file"
@@ -237,21 +238,24 @@ function OtherDepartmentInputsForm() {
           </Grid>
         </Grid>
 
-          <Grid item xs={12} sx={{ textAlign: 'center' }}>
-            <Button type="submit" variant="contained" sx={{ bgcolor: '#ffcc00', color: 'black', '&:hover': { bgcolor: '#e6b800' } }}>
+          <Grid item xs={12} sx={{ textAlign: 'center', mt: 2 }}>
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{ bgcolor: '#ffcc00', color: 'black', '&:hover': { bgcolor: '#e6b800' } }}
+            >
               {editId !== null ? 'Update' : 'Save'}
             </Button>
           </Grid>
       </form>
 
-      <Box sx={{ height: 400, width: '100%', mt: 2 }}>
+      <Box sx={{ height: 400, width: '100%', mt: 4 }}>
         <DataGrid
           rows={records}
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5]}
           disableSelectionOnClick
-          showToolbar
         />
       </Box>
     </Box>
